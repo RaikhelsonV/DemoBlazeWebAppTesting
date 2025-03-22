@@ -1,6 +1,5 @@
 package config;
 
-import io.cucumber.java.Scenario;
 import io.cucumber.plugin.EventListener;
 import io.cucumber.plugin.event.*;
 import com.aventstack.extentreports.*;
@@ -8,7 +7,6 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import io.cucumber.plugin.event.Status;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

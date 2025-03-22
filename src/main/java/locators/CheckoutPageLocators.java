@@ -22,10 +22,8 @@ public class CheckoutPageLocators {
     public WebElement purchaseBtn;
     @FindBy(css = ".sweet-alert ")
     public WebElement thanksForm;
-    @FindBy(css= ".lead")
+    @FindBy(css = ".lead")
     public WebElement purchaseData;
     @FindBy(css = ".confirm")
     public WebElement okBtn;
-
-
 }

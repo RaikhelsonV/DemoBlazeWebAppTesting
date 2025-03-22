@@ -29,6 +29,7 @@ public class Product {
     public WebElement getDeleteButton() {
         return deleteButton;
     }
+
     public void setDeleteButton(WebElement deleteButton) {
         this.deleteButton = deleteButton;
     }

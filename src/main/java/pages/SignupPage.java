@@ -4,7 +4,7 @@ import locators.SignupPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class SignupPage extends BasePage{
+public class SignupPage extends BasePage {
     private SignupPageLocators locator;
 
     public SignupPage(WebDriver driver) {
@@ -21,7 +21,7 @@ public class SignupPage extends BasePage{
         enterText(locator.passwordField, password);
     }
 
-    public void clickSignup() throws InterruptedException {
+    public void clickSignup() {
         click(locator.signupBtn);
     }
 

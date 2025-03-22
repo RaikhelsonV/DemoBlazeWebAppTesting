@@ -26,7 +26,9 @@ public abstract class BasePage {
     public void waitUntilElementIsVisible(WebElement el) {
         wait.until(ExpectedConditions.visibilityOf(el));
     }
-
+    public void waitUntilElementIsVisibleOff(WebElement el) {
+        wait.until(ExpectedConditions.invisibilityOf(el));
+    }
     public void waitUntilElementIsClickable(WebElement el) {
         wait.until(ExpectedConditions.elementToBeClickable(el));
     }
@@ -60,24 +62,24 @@ public abstract class BasePage {
         highlightElement(el, "blue");
         return el.findElement(By.tagName(tag));
     }
+
     public List<WebElement> getElementsByTagInside(WebElement el, String tag) {
         waitUntilElementIsVisible(el);
         highlightElement(el, "blue");
         return el.findElements(By.tagName(tag));
     }
+
     public List<WebElement> getElementsByClassName(WebElement el, String className) {
         waitUntilElementIsVisible(el);
         highlightElement(el, "blue");
         return el.findElements(By.className(className));
     }
 
-
     public boolean isDisplayed(WebElement el) {
         waitUntilElementIsVisible(el);
         highlightElement(el, "blue");
         return el.isDisplayed();
     }
-
 
     public void alertOk() {
         waitUntilAlertIsPresent();
@@ -102,5 +104,4 @@ public abstract class BasePage {
         js.executeScript("var tmpArguments = arguments;setTimeout(function () {tmpArguments[0].setAttribute('style', '"
                 + originalStyle + "');},400);", el);
     }
-
 }

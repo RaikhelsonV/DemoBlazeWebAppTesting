@@ -44,8 +44,17 @@ public class HomePage extends BasePage {
         return getText(locator.productTitle);
     }
 
-    public void clickAddToCart() throws InterruptedException {
-        Thread.sleep(10000);
+    public int getProductPrice(WebElement product) {
+        try {
+            String priceText = getText(getElementByTagInside(product, "h5")).replace("$", "").trim();
+            return Integer.parseInt(priceText);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Failed to parse price for product");
+        }
+    }
+
+    public void clickAddToCart() {
+        waitUntilElementIsVisible(locator.productTitle);
         click(locator.addToCartBtn);
     }
 

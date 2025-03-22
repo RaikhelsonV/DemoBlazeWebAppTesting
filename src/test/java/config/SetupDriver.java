@@ -3,6 +3,7 @@ package config;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -15,12 +16,19 @@ public class SetupDriver {
     @BeforeClass
     public void setUp() throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileInputStream(PROPERTIES_FILE_PATH));
+        try (FileInputStream fileInputStream = new FileInputStream(PROPERTIES_FILE_PATH)) {
+            properties.load(fileInputStream);
+        }
         baseUrl = properties.getProperty("base_url");
 
+        if (baseUrl == null) {
+            throw new IOException("Base URL not found in the properties file.");
+        }
+
         driver = DriverManager.getDriver();
-        driver.get("https://www.demoblaze.com");
+        driver.get(baseUrl);
     }
+
 
     @AfterClass
     public void tearDown() {

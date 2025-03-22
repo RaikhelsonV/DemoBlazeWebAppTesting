@@ -1,14 +1,12 @@
 package steps;
 
 import config.DriverManager;
-
 import config.SetupDriver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.HomePage;
 import pages.LoginPage;

@@ -7,7 +7,6 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.HomePage;
 import pages.SignupPage;
@@ -15,7 +14,7 @@ import pages.SignupPage;
 import java.io.IOException;
 
 
-public class SignupSteps  extends SetupDriver {
+public class SignupSteps extends SetupDriver {
     private HomePage homePage;
     private SignupPage signupPage;
     private static final String HOME_PAGE_TITLE = "STORE";
@@ -38,7 +37,7 @@ public class SignupSteps  extends SetupDriver {
     }
 
     @When("User enters a unique username {string} and password {string}")
-    public void user_enters_valid_credentials(String username, String password) throws InterruptedException {
+    public void user_enters_valid_credentials(String username, String password) {
         signupPage.enterUsername(username);
         signupPage.enterPassword(password);
         signupPage.clickSignup();
@@ -54,5 +53,4 @@ public class SignupSteps  extends SetupDriver {
     public void tearDown() {
         DriverManager.quitDriver();
     }
-
 }

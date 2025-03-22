@@ -16,10 +16,15 @@ If Maven is not already installed, you can download it from the Apache Maven web
 ### **Clone the Repository**
 git clone https://github.com/RaikhelsonV/DemoBlazeWebAppTesting/tree/main
 
+### **Create the Configuration File**
+In order for the tests to work properly, you need to create a config.properties file in the src/test/resources/ directory. The base_url value in this file contains the URL for the DemoBlaze web application. This allows the tests to run against the target application, and the URL can be easily updated if you need to switch to another environment (such as a staging or development environment).
+- Path: src/test/resources/config.properties
+- base_url=https://www.demoblaze.com
+
 ### **Running the Tests:**
 - To execute all tests: mvn test
 - TestRunner: Executes all test scenarios defined in the TestRunner class.
-- Specific Features: Run individual feature files (home.feature, login.feature, signUp.feature) for focused testing.
+- Specific Features: Run individual feature files (home.feature, login.feature, signup.feature) for focused testing.
 
 ### **After running tests, reports are generated at:**
 - target/cucumber-reports/report.html

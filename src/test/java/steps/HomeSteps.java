@@ -53,22 +53,17 @@ public class HomeSteps extends SetupDriver {
 
             if (title.equals(productTitle)) {
                 homePage.waitUntilElementIsClickable(element);
-
-                int price = 0;
-                try {
-                    price = Integer.parseInt(homePage.getElementByTagInside(element, "h5").getText().replace("$", "").trim());
-                } catch (NumberFormatException e) {
-                    Assert.fail("Failed to parse price for product: " + title);
-                }
-
-                productMap.put(title, new Product(title, price));
-
+                storeProductInMap(title, homePage.getProductPrice(element));
                 element.click();
                 productFound = true;
                 break;
             }
         }
         Assert.assertTrue(productFound, "Product with title " + productTitle + " was not found.");
+    }
+
+    private void storeProductInMap(String title, int price) {
+        productMap.put(title, new Product(title, price));
     }
 
     @Then("The product with title {string} should be displayed")
@@ -81,7 +76,6 @@ public class HomeSteps extends SetupDriver {
         homePage.clickAddToCart();
         Assert.assertTrue(homePage.alertText().contains("Product added"), "Expected alert message not found.");
         homePage.alertOk();
-
     }
 
     @Then("The cart should contain 1 item")
@@ -100,28 +94,35 @@ public class HomeSteps extends SetupDriver {
             }
 
             String title = tdElements.get(1).getText();
-            int price = 0;
-            try {
-                price = Integer.parseInt(tdElements.get(2).getText().trim());
-            } catch (NumberFormatException e) {
-                Assert.fail("Failed to parse price for product in cart: " + title);
-            }
-
+            int price = extractPrice(tdElements.get(2).getText(), title);
             WebElement deleteButton = tdElements.get(3).findElement(By.xpath(".//a"));
-            System.out.println(deleteButton);
+
             totalPrice += price;
             Product foundProduct = productMap.get(title);
-
-
-            Assert.assertNotNull(foundProduct, "Product not found in stored map.");
-            Assert.assertEquals(price, foundProduct.getPrice(), "Product price mismatch.");
+            validateProductInfo(foundProduct, price);
             foundProduct.setDeleteButton(deleteButton);
-            System.out.println("Delete Button: " + foundProduct.getDeleteButton());
-
         }
+        validateTotalPrice(totalPrice);
+    }
+
+    private int extractPrice(String priceText, String title) {
+        int price = 0;
+        try {
+            price = Integer.parseInt(priceText.trim());
+        } catch (NumberFormatException e) {
+            Assert.fail("Failed to parse price for product in cart: " + title);
+        }
+        return price;
+    }
+
+    private void validateProductInfo(Product foundProduct, int price) {
+        Assert.assertNotNull(foundProduct, "Product not found in stored map.");
+        Assert.assertEquals(price, foundProduct.getPrice(), "Product price mismatch.");
+    }
+
+    private void validateTotalPrice(int totalPrice) {
         int displayedTotalPrice = Integer.parseInt(cartPage.getTotalPrice().trim());
         Assert.assertEquals(totalPrice, displayedTotalPrice, "Total price mismatch in cart.");
-
     }
 
     @Given("The user has added {string} to the cart")
@@ -129,14 +130,13 @@ public class HomeSteps extends SetupDriver {
         whenUserSelectsProductWithTitle(productTitle);
         whenUserAddsProductToCart();
         thenCartShouldContainOneItem();
-
     }
 
     @When("The user removes the {string} from the cart")
     public void whenUserRemovesProductFromCart(String productTitle) throws InterruptedException {
         Product foundProduct = productMap.get(productTitle);
         cartPage.click(foundProduct.getDeleteButton());
-        Thread.sleep(10000);
+        cartPage.waitUntilElementIsVisibleOff(foundProduct.getDeleteButton());
     }
 
     @Then("The cart should be empty")
@@ -155,13 +155,13 @@ public class HomeSteps extends SetupDriver {
     public void whenUserFillsOutOrderForm(String name, String country, String city, String creditCard, String month, String year) {
         checkoutPage.fillOrderForm(name, country, city, creditCard, month, year);
         checkoutPage.clickPurchase();
-
     }
+
     @Then("The user should see a confirmation message with order details {string} and {string}")
     public void thenUserShouldSeeConfirmationMessage(String name, String creditCard) {
         Assert.assertTrue(checkoutPage.isThanksFormVisible(), "Thanks form is not visible.");
         Assert.assertTrue(checkoutPage.getPurchaseData().contains(name) && checkoutPage.getPurchaseData().contains(creditCard));
-        checkoutPage.clickOk();;
+        checkoutPage.clickOk();
     }
 
     @After
