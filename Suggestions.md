@@ -47,10 +47,6 @@
   *"The media could not be loaded, either because the server or network failed or because the format is not supported."*
 - **Improvement**: Implement proper error handling and ensure supported file formats are used.
 
-### 3.2 Purchase Date Fix
-- **Issue**: The purchase date always displays as `22-02-2025`.
-- **Improvement**: Ensure the purchase date dynamically updates based on the actual order timestamp.
-
 ---
 
 ## 🔹 4. Data Validation

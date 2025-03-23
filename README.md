@@ -28,9 +28,9 @@ In order for the tests to work properly, you need to create a config.properties 
 
 ### **After running tests, reports are generated at:**
 - target/cucumber-reports/report.html
-![img.png](img.png)
+![](CucumberReport.png)
 - target/reports/ExtentReport_timeStamp.html
-![img_1.png](img_1.png)
+![](ExtentReport.png)
 
 📌 Technologies Used
 - Selenium WebDriver 4.29.0

@@ -26,24 +26,24 @@ public class LoginSteps extends SetupDriver {
     }
 
     @Given("User is on Home Page test")
-    public void user_is_on_home_page_test() {
+    public void verifyUserIsOnHomePage() {
         Assert.assertTrue(driver.getTitle().contains(HOME_PAGE_TITLE));
     }
 
     @When("User navigates to Login Page")
-    public void user_navigates_to_login_page() {
+    public void navigateToLoginPage() {
         homePage.clickLogin();
     }
 
     @When("User enters valid credentials {string} and {string}")
-    public void user_enters_valid_credentials(String username, String password) {
+    public void enterValidCredentials(String username, String password) {
         loginPage.enterUsername(username);
         loginPage.enterPassword(password);
         loginPage.clickLogin();
     }
 
     @Then("User is logged in successfully with message {string}")
-    public void user_is_logged_in_successfully(String welcomeMessage) {
+    public void verifyUserIsLoggedInSuccessfully(String welcomeMessage) {
         Assert.assertTrue(homePage.getWelcomeMessage().contains(welcomeMessage));
     }
 

@@ -27,24 +27,24 @@ public class SignupSteps extends SetupDriver {
     }
 
     @Given("User is on Home Page")
-    public void user_is_on_home_page() {
+    public void verifyUserIsOnHomePage() {
         Assert.assertTrue(driver.getTitle().contains(HOME_PAGE_TITLE));
     }
 
     @When("User navigates to Sign Up Page")
-    public void user_navigates_to_signup_page() {
+    public void navigateToSignUpPage() {
         homePage.clickSignUp();
     }
 
     @When("User enters a unique username {string} and password {string}")
-    public void user_enters_valid_credentials(String username, String password) {
+    public void enterValidCredentials(String username, String password) {
         signupPage.enterUsername(username);
         signupPage.enterPassword(password);
         signupPage.clickSignup();
     }
 
     @Then("User sees a registration success message {string}")
-    public void user_is_logged_in_successfully(String signUpMessage) {
+    public void verifyUserSeesRegistrationSuccessMessage(String signUpMessage) {
         Assert.assertTrue(homePage.alertText().contains(signUpMessage));
         homePage.alertOk();
     }

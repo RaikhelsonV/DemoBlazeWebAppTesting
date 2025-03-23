@@ -140,7 +140,7 @@ public class HomeSteps extends SetupDriver {
     }
 
     @Then("The cart should be empty")
-    public void the_cart_is_empty() {
+    public void verifyCartIsEmpty() {
         List<WebElement> allProductsOnCartPage = cartPage.getAllProductsOnCartPage();
         Assert.assertTrue(allProductsOnCartPage.isEmpty(), "The cart is not empty.");
     }
